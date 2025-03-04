@@ -1,0 +1,26 @@
+---
+title: "week2"
+format: html
+editor: visual
+---
+
+```{r}
+library("tidyverse")
+str(iris)
+head(iris)
+tail(iris)
+
+```
+```{r}
+library(tidyverse)
+ggplot(iris,aes(x= Sepal.Width)) + geom_boxplot()
+
+```
+
+
+
+```{r}
+library(tidyverse)
+ggplot(iris, aes(x = Petal.Width, fill= Species)) + geom_histogram() + labs(title = "Sliced historgram of Petal Width by Species")
+
+```
