@@ -1,0 +1,53 @@
+---
+title: "Project IDA"
+format: html
+editor: visual
+---
+
+```{r}
+library(readxl)
+variables = read_excel("all_data.xlsx", sheet = 1)
+exp1 = read_excel("all_data.xlsx", sheet = 2)
+exp2 = read_excel("all_data.xlsx", sheet = 3)
+exp3 = read_excel("all_data.xlsx", sheet = 4)
+pooled_data = read_excel("all_data.xlsx", sheet = 5)
+```
+
+```{r}
+summary(exp1)
+exp1$ssq_modelled
+
+```
+
+```{r}
+library(tidyverse)
+ggplot(exp1, aes(x=ssq_modelled)) + geom_histogram()
+ggplot(exp1, aes(x=ssq_full)) + geom_histogram()
+
+```
+
+potential research question ideas:
+
+1.  does gender have any impact on the susceptibility of social modeling (probably easier less to talk about)
+2.  how does age influence social modeling? (younger ppl get influenced more vs older )
+3.  snowy vs sunny affect anxiety
+4.  prior vr experience
+
+key variables
+
+expectancy VR anxiety State Anxiety modelled ssq
+
+```{r}
+no_sm_polled = filter(pooled_data, sm == "NO_SM")
+sm_polled = filter(pooled_data, sm == "SM_I" | sm == "SM_C")
+
+```
+
+```{r}
+ggplot(sm_polled, aes(x=age)) + 
+  geom_point(aes(y=ssq_modelled)) 
+
+ggplot(sm_polled, aes(x=age)) + 
+  geom_point(aes(y=vranxiety))
+
+```
