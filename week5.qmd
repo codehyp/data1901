@@ -1,0 +1,39 @@
+---
+title: "week5"
+format: html
+editor: visual
+---·
+---
+
+```{r}
+library(ggplot2)
+library(xml2)
+library(readxl)
+Sydney = read.csv("SydneyAirQuality2024.csv")
+data = na.omit(Sydney)
+
+```
+
+```{r}
+linear = lm(RANDWICK_NO2 ~ RANDWICK_NO, data = data)
+ggplot(data, aes(x = data$RANDWICK_NO, y=data$RANDWICK_NO2)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "NO", y = "NO2")
+```
+
+
+```{r}
+summary(linear)
+cor(data$RANDWICK_NO, data$RANDWICK_NO2)
+
+```
+
+
+```{r}
+ggplot(linear, aes(x= .fitted, y=.resid)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "red")+
+  labs(title = "residuals plot of randwick of NO vs NO2")
+
+```

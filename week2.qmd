@@ -11,16 +11,58 @@ head(iris)
 tail(iris)
 
 ```
+
 ```{r}
 library(tidyverse)
 ggplot(iris,aes(x= Sepal.Width)) + geom_boxplot()
 
 ```
 
-
-
 ```{r}
 library(tidyverse)
 ggplot(iris, aes(x = Petal.Width, fill= Species)) + geom_histogram() + labs(title = "Sliced historgram of Petal Width by Species")
 
+```
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+# Creating my scatterplot - mtcars dataset, x=hp, y=mpg
+p = ggplot(mtcars, aes(x = hp, y = mpg)) + # setup canvas
+    geom_point() + # picks appropriate geometry
+    labs(x = "Horsepower", y = "Miles Per Gallon") # add axes labels and title
+
+# Make it interactive
+ggplotly(p)
+```
+
+```{r}
+str(mtcars)
+```
+
+```{r}
+p <- ggplot(mtcars, aes(
+  x = hp,
+  y = mpg,
+  color = factor(cyl),
+  text = paste("Model:", rownames(mtcars))
+)) +
+  geom_point(size = 2) +
+  theme_minimal()+
+  labs(
+    title = "Relationship Between Horsepower and MPG",
+    x = "Horsepower",
+    y = "Miles Per Gallon",
+    color = "Number of \nCylinders"
+  )
+
+# Convert to interactive plot with custom tooltip
+ggplotly(p, tooltip = "text")
+```
+```{r}
+ptest = ggplot(mtcars, aes(x = am, y = mpg)) + # setup canvas
+    geom_boxplot() + # picks appropriate geometry
+    labs(x = "Transmission Type", y = "Miles Per Gallon")
+ggplotly(p)
 ```

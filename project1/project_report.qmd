@@ -44,10 +44,45 @@ sm_polled = filter(pooled_data, sm == "SM_I" | sm == "SM_C")
 ```
 
 ```{r}
-ggplot(sm_polled, aes(x=age)) + 
-  geom_point(aes(y=ssq_modelled)) 
 
-ggplot(sm_polled, aes(x=age)) + 
-  geom_point(aes(y=vranxiety))
+```
+
+```{r}
+# variables to be controlled, prior vr experience, gender, environment, choice/nochoice
+ggplot(sm_polled, aes(x=age,y=ssq_modelled, color=gender)) + 
+  geom_point() 
+
+ggplot(sm_polled, aes(x=age,y=vranxiety, color=gender)) + 
+  geom_point() 
+
+
+ggplot(sm_polled, aes(x=age,y=vranxiety,color = VRexperience)) + 
+  geom_point()
+
+ggplot(sm_polled, aes(x=age,y=vranxiety,color = env)) + 
+  geom_point()
+
+ggplot(sm_polled, aes(x=age,y=vranxiety,color = sm)) + 
+  geom_point()
+```
+```{r}
+#linear regression by group
+library(broom)
+fitted_models = sm_polled %>% group_by(gender,VRexperience,sm) %>% do(model = lm(vranxiety ~ age + I(age^2) + I(age^3)+I(age^4), data = .))
+summary(fitted_models$model[[1]])
+summary(fitted_models$model[[2]])
+summary(fitted_models$model[[3]])
+summary(fitted_models$model[[4]])
+summary(fitted_models$model[[5]])
+summary(fitted_models$model[[6]])
+summary(fitted_models$model[[7]])
+summary(fitted_models$model[[8]])
+```
+
+```{r}
+library(broom)
+fitted_models = sm_polled %>% group_by(VRexperience) %>% do(model = lm(vranxiety ~ age, data = .))
+summary(fitted_models$model[[1]])
+summary(fitted_models$model[[2]])
 
 ```
